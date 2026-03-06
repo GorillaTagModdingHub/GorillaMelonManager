@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="GorillaMelonManager/App.axaml" value="GorillaMelonManager/GorillaMelonManager.csproj" />
+        <entry key="GorillaMelonManager/Views/CustomItems.axaml" value="GorillaMelonManager/GorillaMelonManager.csproj" />
+        <entry key="GorillaMelonManager/Views/MainWindow.axaml" value="GorillaMelonManager/GorillaMelonManager.csproj" />
+        <entry key="GorillaMelonManager/Views/ModBrowser.axaml" value="GorillaMelonManager/GorillaMelonManager.csproj" />
+        <entry key="GorillaMelonManager/Views/ModConfig.axaml" value="GorillaMelonManager/GorillaMelonManager.csproj" />
+        <entry key="GorillaMelonManager/Views/ModManager.axaml" value="GorillaMelonManager/GorillaMelonManager.csproj" />
+        <entry key="GorillaMelonManager/Views/Settings.axaml" value="GorillaMelonManager/GorillaMelonManager.csproj" />
+        <entry key="GorillaModManager/Views/MainWindow.axaml" value="GorillaModManager/GorillaModManager.csproj" />
+        <entry key="GorillaModManager/Views/ModBrowser.axaml" value="GorillaModManager/GorillaModManager.csproj" />
+        <entry key="GorillaModManager/Views/ModConfig.axaml" value="GorillaModManager/GorillaModManager.csproj" />
+        <entry key="GorillaModManager/Views/ModManager.axaml" value="GorillaModManager/GorillaModManager.csproj" />
+        <entry key="GorillaModManager/Views/Settings.axaml" value="GorillaModManager/GorillaModManager.csproj" />
+      </map>
+    </option>
+  </component>
+</project>
