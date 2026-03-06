@@ -2,6 +2,8 @@
 
 ![image](https://github.com/pl2w/GorillaModManager/assets/137610832/91871e46-49da-4380-8050-49725d8e498c)
 
+Forked from pl2w/GorillaModManager
+
 # How to make your mod compatible with Gorilla Mod Manager 
 ## Upload it to GameBanana
 1. Make sure your mod is correctly zipped like this. \
