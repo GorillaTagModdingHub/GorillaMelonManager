@@ -1,6 +1,6 @@
 # Gorilla Melon Manager
 
-![image](https://github.com/GorillaTagModdingHub/GorillaMelonManager/blob/master/GorillaModManager/Assets/preview.png?raw=true)
+![image](https://github.com/GorillaTagModdingHub/GorillaMelonManager/blob/master/GorillaMelonManager/Assets/preview.png?raw=true)
 
 Forked from pl2w/GorillaModManager
 
