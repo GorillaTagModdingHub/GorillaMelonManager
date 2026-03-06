@@ -31,6 +31,9 @@ namespace GorillaMelonManager.Services
                     desc = profile._sDescription;
                 }
                 
+                if (!item._aTags.Contains("ModLoader: MelonLoader"))
+                    continue;
+                
                 if (item._aRootCategory.ToString() == "Software")
                     continue;
 
