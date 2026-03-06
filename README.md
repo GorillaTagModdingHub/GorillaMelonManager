@@ -18,9 +18,8 @@ Forked from pl2w/GorillaModManager
       └─ Plugin.dll
    ```
 
-2. Make sure the dependencies are correctly listed in gamebanana. \
-   It must have a valid zip file link as an url, a github latest download link or a gamebanana mod link \
-   Latest: "https://github.com/legoandmars/Utilla/releases/latest" \
+2. Make sure the dependencies are correctly listed in GameBanana. \
+   It must have a valid zip file link as an url, a GitHub download link or a GameBanana mod link \
    Zip: "https://github.com/legoandmars/Utilla/releases/download/v1.6.13/Utilla.zip" \
    GameBanana: "https://gamebanana.com/mods/507053"
 
