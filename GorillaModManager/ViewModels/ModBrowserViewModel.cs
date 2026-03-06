@@ -79,10 +79,10 @@ namespace GorillaModManager.ViewModels
                 return;
             }
 
-            if (!Directory.Exists(Path.Combine(ManagerSettings.Default.GamePath, "BepInEx", "plugins")))
+            if (!Directory.Exists(DataUtils.Plugins()))
             {
                 var box = MessageBoxManager
-                    .GetMessageBoxStandard("Browser Failure.", "You have not setup bepinex properly or your game path is set incorrectly.",
+                    .GetMessageBoxStandard("Browser Failure.", "You have not setup a mod loader properly or your game path is set incorrectly.",
                         ButtonEnum.Ok);
 
                 await box.ShowAsync();

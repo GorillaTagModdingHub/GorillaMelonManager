@@ -10,47 +10,13 @@
 			 x:DataType="vm:ModBrowserViewModel"
 			 xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia">
 	<Panel>
-		<Panel>
-			<Border Background="#2E2E2E"
-				BorderBrush="#1F1F1F"
-				BorderThickness="5"
-				CornerRadius="5"
-				Margin="0 2"
-				Height="50"
-				Width="475"
-				VerticalAlignment="Top">
-				<Panel VerticalAlignment="Center">
-					<TextBox Width="315"
-							 Height="20"
-							 Watermark="Search..."
-							 Margin="5 0"
-							 Name="SearchBar" HorizontalAlignment="Left"/>
-
-					<!-- work around for the symbol '<' -->
-				    <Button Content="&#x003C;" Margin="110 0" HorizontalAlignment="Right"
-							Name="Prev"
-							Click="OnPageClick"/>
-					
-					<TextBox Width="5"
-							 Height="20"
-							 Watermark="Page"
-							 Margin="39 0"
-							 Name="SearchIndex" HorizontalAlignment="Right"/>
-					
-					<Button Content=">" Margin="5 0" HorizontalAlignment="Right" 
-							Name="Next"
-							Click="OnPageClick"/>
-				</Panel>
-			</Border>
-		</Panel>
-
 		<TextBlock HorizontalAlignment="Center"
 			VerticalAlignment="Center"
 			Foreground="Black"
 			FontSize="24"
 			IsVisible="{Binding !ModsFetched}">Fetching mods, please be patient!</TextBlock>
 
-		<Grid Margin="10 20" Height="325" VerticalAlignment="Bottom">
+		<Grid Margin="10 2">
 			<ScrollViewer>
 				<ItemsRepeater ItemsSource="{Binding ModsForPage}">
 					<ItemsRepeater.Layout>
@@ -106,7 +72,6 @@
 									</TextBlock>
 
 									<Button Content="Install"
-											Name="{Binding DownloadUrl}"
 											Command="{Binding InstallMod}"
 											Margin="5"
 											VerticalAlignment="Bottom"

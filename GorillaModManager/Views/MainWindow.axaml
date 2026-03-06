@@ -30,7 +30,7 @@
             HorizontalAlignment="Left"
             IsHitTestVisible="False">
             <TextBlock
-                Text="Gorilla Mod Manager"
+                Text="Gorilla Melon Manager"
                 HorizontalAlignment="Center"
                 Margin="0 15"
                 FontSize="16"
@@ -40,30 +40,13 @@
                 Margin="0 40"
                 FontSize="10"
                 Foreground="Gray"
-                Text="by pl2w | discord.gg/monkemod">
+                Text="original by pl2w, fork by Lapis">
             </TextBlock>
 
             <Panel Width="200" Height="2"
                    Background="#2e2e2e" VerticalAlignment="Top"
                    Margin="60"/>
-
-            <Button HorizontalAlignment="Right" VerticalAlignment="Top"
-                    Background="Transparent"
-                    Margin="22 40"
-                    Width="110"
-                    Command="{Binding OnDiscordClick}">
-                <Button.Styles>
-                    <Style Selector="Button">
-                        <Setter Property="Background" Value="Transparent" />
-                    </Style>
-                    <Style Selector="Button:pointerover /template/ ContentPresenter">
-                        <Setter Property="Background" Value="Transparent" />
-                    </Style>
-                    <Style Selector="Button:pressed /template/ ContentPresenter">
-                        <Setter Property="Background" Value="Transparent" />
-                    </Style>
-                </Button.Styles>
-            </Button>
+            
         </Panel>
 
         <WrapPanel Margin="0 290" Height="450">
@@ -82,7 +65,7 @@
                 <views:CustomItems/>
                 </TabItem>
                 -->
-                <TabItem Header="Miscellaneous">
+                <TabItem Header="Settings">
                     <views:Settings/>
                 </TabItem>
             </TabControl>

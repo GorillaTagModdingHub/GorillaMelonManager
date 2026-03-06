@@ -1,4 +1,5 @@
 ﻿using GorillaModManager.Services;
+using GorillaModManager.Models.Persistence;
 using MsBox.Avalonia.Enums;
 using MsBox.Avalonia;
 using Newtonsoft.Json.Linq;
@@ -44,7 +45,19 @@ namespace GorillaModManager.Models.Mods
         {
             Debug.WriteLine($"Installing {ModName}");
 
-            if(Dependencies?.Count > 0)
+            if (!DataUtils.HasValidGamePath() || !DataUtils.IsModLoaderInstalled())
+            {
+                var setupResult = await new MelonLoaderService().SetupMelonLoaderAsync(ManagerSettings.Default.GamePath);
+                await MessageBoxManager
+                    .GetMessageBoxStandard(
+                        "Installer",
+                        $"{setupResult}\n\nPlease try installing the mod again after setup completes.",
+                        ButtonEnum.Ok)
+                    .ShowAsync();
+                return;
+            }
+
+            if (Dependencies?.Count > 0)
             {
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine("This mod has dependencies listed on its GameBanana page.");

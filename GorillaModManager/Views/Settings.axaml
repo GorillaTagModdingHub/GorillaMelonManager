@@ -16,16 +16,14 @@
 				Margin="0 2"
 				Width="475">
 			<WrapPanel>
-				<TextBlock Margin="7 5" Text="BepInEx" FontSize="18"/>
+				<TextBlock Margin="7 5" Text="Mod Loaders" FontSize="18"/>
 				<TextBox Margin="5" Name="GorilaPath"
 						 Watermark="Gorilla Tag Path" 
 						 Width="415" />
 				<Button Margin="5" Name="PathButton" Click="OnPathClick">...</Button>
-				<Button Margin="5" Click="BepInButtons" Name="InstallButton">Install BepInEx</Button>
-				<Button Margin="5" Click="BepInButtons" Name="UninstallButton">Uninstall BepInEx</Button>
-				<Button Margin="5" Click="BepInButtons" Name="ToggleButton">Disable BepInEx</Button>
-				<Button Margin="5" Click="BepInButtons" Name="BackupMods">Backup BepInEx</Button>
-				<Button Margin="5" Click="BepInButtons" Name="UseBackup">Install Backup</Button>
+				<Button Margin="5" Click="ModLoaderButtons" Name="InstallMelonLoader">Install MelonLoader</Button>
+				<Button Margin="5" Click="ModLoaderButtons" Name="UninstallMelonLoader">Uninstall MelonLoader</Button>
+				<Button Margin="5" Click="ModLoaderButtons" Name="RestoreBepInEx">Restore BepInEx</Button>
 			</WrapPanel>
 		</Border>
 

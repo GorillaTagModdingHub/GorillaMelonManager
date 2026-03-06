@@ -82,10 +82,7 @@ namespace GorillaModManager.ViewModels
 
                 if (!_cachedModInfos.TryGetValue($"{modPath}/{modSimpleName}", out ModInfo cachedInfo))
                 {
-                    // load game banana info
-                    string gameBananaInfoPath = Path.Combine(modPath, "gamebanana.json");
-                    if (File.Exists(gameBananaInfoPath)) 
-                        gameBananaInfo = JsonConvert.DeserializeObject<GameBananaInfo>(File.ReadAllText(gameBananaInfoPath)) ?? throw new Exception("Failed to parse game banana info. Please delete the cache file at " + gameBananaInfoPath);
+                    gameBananaInfo = LoadGameBananaInfo(modPath, modSimpleName);
 
                     var types = AssemblyDefinition
                         .ReadAssembly(modFiles[i], new ReaderParameters { ReadWrite = true })
@@ -97,13 +94,20 @@ namespace GorillaModManager.ViewModels
                     types.RemoveAll(x => x == null);
 
                     bool IsBepInPlugin = false;
+                    bool IsMelonMod = false;
                     TypeDefinition pluginType = null;
+                    
                     for (int j = 0; j < types.Count; j++)
                     {
                         if (types[j].BaseType?.FullName == "BepInEx.BaseUnityPlugin")
                         {
                             pluginType = types[j];
                             IsBepInPlugin = true;
+                        }
+                        else if (types[j].BaseType?.FullName == "MelonLoader.MelonMod")
+                        {
+                            pluginType = types[j];
+                            IsMelonMod = true;
                         }
                     }
 
@@ -124,6 +128,19 @@ namespace GorillaModManager.ViewModels
                             //    var values = pluginType.CustomAttributes[z].ConstructorArguments;
                             //    modDependencies.Add((string)values[0].Value);
                             //}
+                        }
+                    }
+                    else if (IsMelonMod)
+                    {
+                        for (int z = 0; z < pluginType?.CustomAttributes.Count; z++)
+                        {
+                            if (pluginType.CustomAttributes[z].Constructor.FullName.Contains("MelonLoader.MelonInfo"))
+                            {
+                                var values = pluginType.CustomAttributes[z].ConstructorArguments;
+                                modGuid = types[0].FullName;
+                                modName = (string)values[1].Value;
+                                modVersion = $"v{(string)values[2].Value}";
+                            }
                         }
                     }
                 }
@@ -155,13 +172,11 @@ namespace GorillaModManager.ViewModels
 
                 if (!_cachedModInfos.ContainsKey($"{modPath}/{modSimpleName}"))
                 {
-                    string gameBananaInfoPath = Path.Combine(modPath, "gamebanana.json");
-                    gameBananaInfo = File.Exists(gameBananaInfoPath) ? JsonConvert.DeserializeObject<GameBananaInfo>(File.ReadAllText(gameBananaInfoPath)) : null;
+                    gameBananaInfo = LoadGameBananaInfo(modPath, modSimpleName);
                     ModInfo info = gameBananaInfo != null ?
                         new ModInfo(modGuid, modName, modVersion, modDependencies, gameBananaInfo) :
                         new ModInfo(modGuid, modName, modVersion, modDependencies);
                     _cachedModInfos.Add($"{modPath}/{modSimpleName}", info);
-                    // Debug.WriteLine($"Did get gamebanana info for {info.modName} {info.gameBananaInfo != null}");
                 }
             }
 
@@ -171,6 +186,28 @@ namespace GorillaModManager.ViewModels
 #endif
 
             return ManagerMods;
+        }
+
+        private static GameBananaInfo? LoadGameBananaInfo(string modPath, string modSimpleName)
+        {
+            string sharedPath = Path.Combine(DataUtils.Plugins(), "gamebanana.json");
+            if (File.Exists(sharedPath))
+            {
+                string sharedJson = File.ReadAllText(sharedPath);
+                var sharedMap = JsonConvert.DeserializeObject<Dictionary<string, GameBananaInfo>>(sharedJson);
+                if (sharedMap != null && sharedMap.TryGetValue(modSimpleName, out GameBananaInfo sharedInfo))
+                    return sharedInfo;
+                
+                var legacyShared = JsonConvert.DeserializeObject<GameBananaInfo>(sharedJson);
+                if (legacyShared != null)
+                    return legacyShared;
+            }
+
+            string legacyPath = Path.Combine(modPath, "gamebanana.json");
+            if (!File.Exists(legacyPath))
+                return null;
+
+            return JsonConvert.DeserializeObject<GameBananaInfo>(File.ReadAllText(legacyPath));
         }
 
         public static Bitmap ByteArrayToBitmap(byte[] byteArray)

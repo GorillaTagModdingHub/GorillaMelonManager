@@ -11,8 +11,6 @@ namespace GorillaModManager.Views
         {
             InitializeComponent();
             this.DataContext = new ModBrowserViewModel();
-
-            SearchIndex.IsReadOnly = true;
         }
 
         public void OnInstallButtonClick(object sender, RoutedEventArgs e)

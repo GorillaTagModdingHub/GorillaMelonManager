@@ -59,9 +59,6 @@
 
                                 <!-- Controls -->
                                 <Panel HorizontalAlignment="Right">
-                                    <Button Content="Uninstall"
-                                            Margin="40 0" HorizontalAlignment="Right"
-                                            Command="{Binding Uninstall}"/>
                                     <CheckBox
                                         IsChecked="{Binding Enabled}"
                                         Margin="0 0" HorizontalAlignment="Right"
@@ -75,7 +72,6 @@
                                     <TextBlock Margin="60 -2.5">
                                         <Run Text="{Binding ModName}"/>
                                         <Run> | </Run>
-                                        <Run Text="{Binding ModVersion}"/>
                                         <Run Foreground="Gray"> by </Run>
                                         <Run Foreground="Gray" Text="{Binding ModAuthor}"/>
                                     </TextBlock>
