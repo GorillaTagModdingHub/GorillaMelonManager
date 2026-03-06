@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GorillaModManager", "GorillaModManager\GorillaModManager.csproj", "{179BA494-C665-4F42-A97B-35364EA6F513}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GorillaMelonManager", "GorillaMelonManager\GorillaMelonManager.csproj", "{179BA494-C665-4F42-A97B-35364EA6F513}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
