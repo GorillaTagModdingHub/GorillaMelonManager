@@ -32,6 +32,12 @@ Failure to comply with those two rules will result in your GameBanana mod being 
 3. Extract the contents of the MelonLoader zip into your game folder
 4. Launch the game once to generate mods/plugins folders
 
+Or use the MelonLoader graphical installer:
+
+[Windows](https://github.com/LavaGang/MelonLoader.Installer/releases/latest/download/MelonLoader.Installer.exe)
+
+[Linux](https://github.com/LavaGang/MelonLoader.Installer/releases/latest/download/MelonLoader.Installer.Linux)
+
 # How to manually install mods/plugins
 
 1. Download the Mod/Plugin
