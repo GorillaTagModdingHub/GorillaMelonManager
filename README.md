@@ -24,3 +24,15 @@ Forked from pl2w/GorillaModManager
    GameBanana: "https://gamebanana.com/mods/507053"
 
 Failure to comply with those two rules will result in your GameBanana mod being unable to be installed from Gorilla Melon Manager.
+
+# How to manually install MelonLoader
+
+1. Backup and delete any BepInEx related folder/files if you have them.
+2. [Download MelonLoader](https://github.com/LavaGang/MelonLoader/releases/download/v0.7.2/MelonLoader.x64.zip)
+3. Extract the contents of the MelonLoader zip into your game folder
+4. Launch the game once to generate mods/plugins folders
+
+# How to manually install mods/plugins
+
+1. Download the Mod/Plugin
+2. Put the dll's in their corresponding folders in your game folder
