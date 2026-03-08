@@ -23,7 +23,9 @@ Forked from pl2w/GorillaModManager
    Zip: "https://github.com/legoandmars/Utilla/releases/download/v1.6.13/Utilla.zip" \
    GameBanana: "https://gamebanana.com/mods/507053"
 
-Failure to comply with those two rules will result in your GameBanana mod being unable to be installed from Gorilla Melon Manager.
+3. Make sure to add the `ModLoader: MelonLoader` tag to your mod under the "Techincal" tab.   
+
+Failure to comply with these three rules will result in your GameBanana mod being unable to be installed from Gorilla Melon Manager.
 
 # How to manually install MelonLoader
 
