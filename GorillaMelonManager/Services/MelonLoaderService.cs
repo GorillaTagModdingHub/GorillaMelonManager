@@ -175,7 +175,7 @@ namespace GorillaMelonManager.Services
 
                 Directory.CreateDirectory(melonLoaderPath);
 
-                const string melonLoaderUrl = "https://github.com/LavaGang/MelonLoader/releases/download/v0.6.5/MelonLoader.x64.zip";
+                const string melonLoaderUrl = "https://github.com/LavaGang/MelonLoader/releases/download/v0.7.2/MelonLoader.x64.zip";
                 var tempZipPath = Path.Combine(gorillaTagPath, "MelonLoader_temp.zip");
 
                 try
