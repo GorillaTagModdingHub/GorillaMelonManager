@@ -6,12 +6,14 @@
         public string? iconUrl;
         public string? author;
         public string? description;
+        public string? name;
 
-        public GameBananaInfo(string? iconUrl, string? author, string? description)
+        public GameBananaInfo(string? iconUrl, string? author, string? description, string? name)
         {
             this.iconUrl = iconUrl;
             this.author = author;
             this.description = description;
+            this.name = name;
         }
     }
 }

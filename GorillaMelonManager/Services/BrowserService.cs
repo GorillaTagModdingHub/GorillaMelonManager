@@ -2,7 +2,9 @@
 using GameBananaAPI.Data;
 using GorillaMelonManager.Models.Mods;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
+using GorillaMelonManager.Models.Persistence;
 
 namespace GorillaMelonManager.Services
 {
@@ -31,7 +33,7 @@ namespace GorillaMelonManager.Services
                     desc = profile._sDescription;
                 }
                 
-                if (!item._aTags.Contains("ModLoader: MelonLoader"))
+                if (!item._aTags.Contains("ModLoader: MelonLoader") && !File.Exists(Path.Combine(ManagerSettings.Default.GamePath, "Plugins", "MelInEx.dll")))
                     continue;
                 
                 if (item._aRootCategory.ToString() == "Software")

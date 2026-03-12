@@ -27,7 +27,8 @@ namespace GorillaMelonManager.Services
             var metadata = new GameBananaInfo(
                 modToInstall.ThumbnailImageUrl,
                 modToInstall.ModAuthor,
-                modToInstall.ModShortDescription
+                modToInstall.ModShortDescription,
+                modToInstall.ModName
             );
 
             ExtractModArchive(data, metadata);
@@ -85,6 +86,12 @@ namespace GorillaMelonManager.Services
                     continue;
 
                 var (targetRoot, targetRelativePath) = MapArchivePath(relPath, activeModsPath, melonModsPath, bepinPluginsPath);
+                // special exception for MelInEx
+                if (metadata.name == "MelInEx")
+                {
+                    targetRoot = Path.Combine(gamePath, "Plugins");
+                    targetRelativePath = relPath["Plugins/".Length..];
+                }
                 if (string.IsNullOrEmpty(targetRelativePath))
                     continue;
 
