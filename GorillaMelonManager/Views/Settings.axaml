@@ -23,6 +23,7 @@
 				<Button Margin="5" Click="ModLoaderButtons" Name="InstallMelonLoader">Install MelonLoader</Button>
 				<Button Margin="5" Click="ModLoaderButtons" Name="UninstallMelonLoader">Uninstall MelonLoader</Button>
 				<Button Margin="5" Click="ModLoaderButtons" Name="RestoreBepInEx">Restore BepInEx</Button>
+				<Button Margin="5" Click="ModLoaderButtons" Name="InstallMelInEx">Install MelInEx</Button>
 			</WrapPanel>
 		</Border>
 

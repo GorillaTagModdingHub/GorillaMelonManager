@@ -1,10 +1,13 @@
-﻿﻿using GameBananaAPI;
+﻿﻿using System;
+ using GameBananaAPI;
 using GameBananaAPI.Data;
 using GorillaMelonManager.Models.Mods;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 using GorillaMelonManager.Models.Persistence;
+using Newtonsoft.Json;
 
 namespace GorillaMelonManager.Services
 {
@@ -23,7 +26,7 @@ namespace GorillaMelonManager.Services
             foreach (RecordData item in subData)
             {
                 ProfilePageData profile = await API.GetModProfilePage(item._idRow);
-
+                
                 if (profile._sDescription == null || profile._sDescription.Length == 0)
                 {
                     desc = "No description provided.";

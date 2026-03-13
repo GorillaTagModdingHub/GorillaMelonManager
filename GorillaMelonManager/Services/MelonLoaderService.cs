@@ -3,6 +3,8 @@ using System.IO;
 using System.IO.Compression;
 using System.Net.Http;
 using System.Threading.Tasks;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
 
 namespace GorillaMelonManager.Services
 {
@@ -34,14 +36,14 @@ namespace GorillaMelonManager.Services
             var melonLoaderPath = Path.Combine(gorillaTagPath, "MelonLoader");
             var bepInExBackupPath = Path.Combine(gorillaTagPath, "BepInExBackup");
 
-            if (Directory.Exists(melonLoaderPath))
-            {
-                return ModLoaderStatus.MelonLoader;
-            }
-
             if (Directory.Exists(bepInExBackupPath))
             {
                 return ModLoaderStatus.BepInExBackedUp;
+            }
+
+            if (Directory.Exists(melonLoaderPath))
+            {
+                return ModLoaderStatus.MelonLoader;
             }
 
             if (Directory.Exists(bepInExPath))
@@ -105,7 +107,7 @@ namespace GorillaMelonManager.Services
             }
         }
 
-        public async Task<bool> RestoreBepInExAsync(string gorillaTagPath)
+        public async Task<bool> RestoreBepInExAsync(string gorillaTagPath, bool doMelInEx)
         {
             try
             {
@@ -116,6 +118,22 @@ namespace GorillaMelonManager.Services
                 if (!Directory.Exists(backupPath))
                 {
                     return false;
+                }
+
+                if (doMelInEx)
+                {
+                    Directory.Move(backupPath, bepInExPath);
+                    if (File.Exists(Path.Combine(bepInExPath, ".doorstop_version")))
+                        File.Delete(Path.Combine(bepInExPath, ".doorstop_version"));
+                    if (File.Exists(Path.Combine(bepInExPath, "changelog.txt")))
+                        File.Delete(Path.Combine(bepInExPath, "changelog.txt"));
+                    if (File.Exists(Path.Combine(bepInExPath, "doorstop_config.ini")))
+                        File.Delete(Path.Combine(bepInExPath, "doorstop_config.ini"));
+                    if (File.Exists(Path.Combine(bepInExPath, "winhttp.dll")))
+                        File.Delete(Path.Combine(bepInExPath, "winhttp.dll"));
+                    if (File.Exists(Path.Combine(bepInExPath, "version.dll")))
+                        File.Delete(Path.Combine(bepInExPath, "version.dll"));
+                    return true;
                 }
 
                 if (Directory.Exists(melonLoaderPath))
@@ -138,8 +156,6 @@ namespace GorillaMelonManager.Services
                     Directory.Delete(bepInExPath, true);
                 }
 
-                await Task.Run(() => CopyDirectory(backupPath, bepInExPath));
-
                 var filesToRestore = new[] { "winhttp.dll", "doorstop_config.ini", "changelog.txt", ".doorstop_version" };
                 foreach (var fileName in filesToRestore)
                 {
@@ -148,9 +164,11 @@ namespace GorillaMelonManager.Services
                     
                     if (File.Exists(sourceFile))
                     {
-                        File.Copy(sourceFile, destFile, true);
+                        File.Move(sourceFile, destFile, true);
                     }
                 }
+
+                await Task.Run(() => CopyDirectory(backupPath, bepInExPath));
 
                 Directory.Delete(backupPath, true);
 
@@ -207,6 +225,99 @@ namespace GorillaMelonManager.Services
                     {
                         Directory.Delete(melonLoaderPath);
                     }
+                    
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        
+        public async Task<bool> ReinstallBepDoorstopAsync(string gorillaTagPath)
+        {
+            try
+            {
+                // uh... probably shouldn't redownload it every time? Eh it's fine
+                const string bepInExUrl = "https://github.com/BepInEx/BepInEx/releases/download/v5.4.23.5/BepInEx_win_x64_5.4.23.5.zip";
+                var tempZipPath = Path.Combine(gorillaTagPath, "MelonLoader_temp.zip");
+
+                try
+                {
+                    using (var response = await _httpClient.GetAsync(bepInExUrl, HttpCompletionOption.ResponseHeadersRead))
+                    {
+                        response.EnsureSuccessStatusCode();
+                        using (var contentStream = await response.Content.ReadAsStreamAsync())
+                        using (var fileStream = File.Create(tempZipPath))
+                        {
+                            await contentStream.CopyToAsync(fileStream);
+                        }
+                    }
+
+                    ZipFile.ExtractToDirectory(tempZipPath, Path.Combine(gorillaTagPath, "TempInEx"), overwriteFiles: true);
+                    
+                    Directory.Delete(Path.Combine(gorillaTagPath, "TempInEx", "BepInEx"), true);
+
+                    foreach (string file in Directory.GetFiles(Path.Combine(gorillaTagPath, "TempInEx")))
+                    {
+                        File.Move(file, Path.Combine(gorillaTagPath, "BepInEx", Path.GetFileName(file)));
+                    }
+                    Directory.Delete(Path.Combine(gorillaTagPath, "TempInEx"), true);
+
+                    File.Delete(tempZipPath);
+
+                    return true;
+                }
+                catch (Exception)
+                {
+                    if (File.Exists(tempZipPath))
+                        File.Delete(tempZipPath);
+                    
+                    if (Directory.Exists(Path.Combine(gorillaTagPath, "TempInEx")))
+                        Directory.Delete(Path.Combine(gorillaTagPath, "TempInEx"));
+                    
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> InstallMelInExAsync(string gorillaTagPath)
+        {
+            try
+            {
+                string MelInExPath = Path.Combine(gorillaTagPath, "Plugins/MelInEx.dll");
+                
+                if (File.Exists(MelInExPath))
+                    return true;
+                
+                if (!Directory.Exists(Path.Combine(gorillaTagPath, "Plugins")))
+                    Directory.CreateDirectory(Path.Combine(gorillaTagPath, "Plugins"));
+                
+                const string melInExUrl = "https://github.com/Loafiat/MelInEx/releases/latest/download/MelInEx.dll";
+                
+                try
+                {
+                    using (var response = await _httpClient.GetAsync(melInExUrl, HttpCompletionOption.ResponseHeadersRead))
+                    {
+                        response.EnsureSuccessStatusCode();
+                        using (var contentStream = await response.Content.ReadAsStreamAsync())
+                        using (var fileStream = File.Create(MelInExPath))
+                        {
+                            await contentStream.CopyToAsync(fileStream);
+                        }
+                    }
+
+                    return true;
+                }
+                catch (Exception)
+                {
+                    if (File.Exists(MelInExPath))
+                        File.Delete(MelInExPath);
                     
                     return false;
                 }

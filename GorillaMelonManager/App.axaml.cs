@@ -3,7 +3,6 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using GorillaMelonManager.ViewModels;
 using GorillaMelonManager.Views;
-using GorillaMelonManager.Views;
 
 namespace GorillaMelonManager
 {

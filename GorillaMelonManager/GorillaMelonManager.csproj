@@ -11,6 +11,15 @@
     <SkipRestoreWorkloadImports>true</SkipRestoreWorkloadImports>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(RuntimeIdentifier)' == 'linux-x64'">
+    <DefineConstants>$(DefineConstants);LINUX_BUILD</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(RuntimeIdentifier)' == 'win-x64'">
+    <DefineConstants>$(DefineConstants);WINDOWS_BUILD</DefineConstants>
+  </PropertyGroup>
+
+
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
